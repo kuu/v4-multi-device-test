@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=yes" />
+  <title>bit_wrapper</title>
+  <script src="scripts/swfobject.js"></script>
+  <script src="scripts/fetch.js"></script>
+  <script src="//player.ooyala.com/static/v4/stable/4.4.7/core.min.js"></script>
+  <script src="//player.ooyala.com/static/v4/stable/4.4.7/video-plugin/bit_wrapper.min.js"></script>
+  <script src="//player.ooyala.com/static/v4/stable/4.4.7/skin-plugin/html5-skin.min.js"></script>
+  <link rel="stylesheet" href="//player.ooyala.com/static/v4/stable/4.4.7/skin-plugin/html5-skin.min.css"/>
+</head>
+
+<body>
+  <!-- build:js scripts/main.js -->
+  <script src="scripts/index.js"></script>
+  <!-- endbuild -->
+  <h2>Player V4 multi-device test - bit_wrapper</h2>
+  <h3 id="flashStatus"></h3>
+  <script>
+    var playerParam = {
+      "pcode": "BtbmUyOlamRiH-S0S-iUeNvf_ghr",
+      "playerBrandingId": "7267438d470c471eb75a165a8b670617",
+      'debug':true,
+      "skin": {
+        "config": "//player.ooyala.com/static/v4/stable/4.4.7/skin-plugin/skin.json"
+      }
+    };
+    var flashEnabled = swfobject.hasFlashPlayerVersion('10.0.0');
+    var plugin = 'bit_wrapper';
+    document.querySelector('#flashStatus').textContent = 'Flash is ' + (flashEnabled ? 'enabled' : 'disabled') + '.';
+  </script>
+  <div id="mp4">
+    <h3>MP4</h3>
+    <div id='container-mp4' style='width:600px;'></div>
+    <div class="navigator">
+      <label>Success<input type="radio" name="mp4" value="success"></label>
+      <label>Failure<input type="radio" name="mp4" value="failure" checked></label>
+      <button id="button-mp4">Submit</button>
+    </div>
+    <script>
+      setUpPlayer('mp4', plugin, flashEnabled, 'w4N3l1MzE6xFOORY0A42yzBednwFHs9D', playerParam);
+    </script>
+  </div>
+  <hr />
+  <div id="hds">
+    <h3>HDS</h3>
+    <div id='container-hds' style='width:600px;'></div>
+    <div class="navigator">
+      <label>Success<input type="radio" name="hds" value="success"></label>
+      <label>Failure<input type="radio" name="hds" value="failure" checked></label>
+      <button id="button-hds">Submit</button>
+    </div>
+    <script>
+      setUpPlayer('hds', plugin, flashEnabled, 'MzOHl1MzE636lhRpq1_OAVajwDLETpId', playerParam);
+    </script>
+  </div>
+  <hr />
+  <div id="hls">
+    <h3>HLS</h3>
+    <div id='container-hls' style='width:600px;'></div>
+    <div class="navigator">
+      <label>Success<input type="radio" name="hls" value="success"></label>
+      <label>Failure<input type="radio" name="hls" value="failure" checked></label>
+      <button id="button-hls">Submit</button>
+    </div>
+    <script>
+      setUpPlayer('hls', plugin, flashEnabled, 'ZiYXl1MzE68DA3m6atYx95nQ4yHgoT77', playerParam);
+    </script>
+  </div>
+  <hr />
+  <div id="dash">
+    <h3>MPEG-DASH</h3>
+    <div id='container-dash' style='width:600px;'></div>
+    <div class="navigator">
+      <label>Success<input type="radio" name="dash" value="success"></label>
+      <label>Failure<input type="radio" name="dash" value="failure" checked></label>
+      <button id="button-dash">Submit</button>
+    </div>
+    <script>
+      setUpPlayer('dash', plugin, flashEnabled, 'JrYnl1MzE6R4bblH7ZhbC3bI96h3-ZhJ', playerParam);
+    </script>
+  </div>
+</body>
+</html>

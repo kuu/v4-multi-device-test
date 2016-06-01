@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=yes" />
+    <title>Ooyala Player V4 multi-device test</title>
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    <script src="scripts/fetch.js"></script>
+  </head>
+  <body>
+    <!--[if lt IE 10]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div class="container">
+
+      <div class="header">
+        <h3 class="text-muted">Ooyala Player V4 multi-device test</h3>
+      </div>
+
+      <div class="article">
+        <div class="list">
+          <h4>Go to the test page:</h4>
+          <ul class="nav">
+            <li><a href="test_bit_wrapper.html">bit_wrapper</a></li>
+            <li><a href="test_main_html5.html">main_html5</a></li>
+            <li><a href="test_osmf_flash.html">osmf_flash</a></li>
+          </ul>
+        </div>
+        <hr />
+        <div>
+          <h4>Summary:</h4>
+          <div id="result"></div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>♥ from the Ooyala team</p>
+      </div>
+
+    </div>
+
+    <!-- build:js scripts/main.js -->
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+
+    <script>
+      renderResult(document.querySelector('#result'));
+    </script>
+
+  </body>
+</html>
