@@ -8,51 +8,78 @@ const port = process.env.PORT || 8080;
 const BASE_DIR = path.join(__dirname, '../../../');
 const db = new JsonDB('db', true, false);
 
-
 app.use(express.static(BASE_DIR + 'dist'));
 app.use(useragent.express());
 
+const VALUES = {
+  device: [
+    'pc', 'tablet', 'phone', 'unknown'
+  ],
+  os: [
+    'windows', 'mac', 'linux', 'ios', 'android', 'unknown'
+  ],
+  browser: [
+    'chrome', 'firefox', 'safari', 'ie', 'edge', 'unknown'
+  ],
+  flash: [
+    'true', 'false'
+  ]
+};
+
 function getDevice(ua) {
-  if (ua.isTablet) {
-    return 'tablet';
+  if (ua.isDesktop) {
+    return VALUES.device[0];
+  } else if (ua.isTablet) {
+    return VALUES.device[1];
   } else if (ua.isMobile) {
-    return 'phone';
-  } else if (ua.isDesktop) {
-    return 'pc';
+    return VALUES.device[2];
   } else {
-    return 'unknown';
+    return VALUES.device[3];
   }
 }
 
 function getOS(ua) {
-  if (ua.isiPad || ua.isiPod || ua.isiPhone) {
-    return 'ios';
-  } else if (ua.isAndroid) {
-    return 'android';
-  } else if (ua.isWindows) {
-    return 'windows';
+  if (ua.isWindows) {
+    return VALUES.os[0];
   } else if (ua.isMac) {
-    return 'mac';
+    return VALUES.os[1];
   } else if (ua.isLinux || ua.isLinux64) {
-    return 'linux';
+    return VALUES.os[2];
+  } else if (ua.isiPad || ua.isiPod || ua.isiPhone) {
+    return VALUES.os[3];
+  } else if (ua.isAndroid) {
+    return VALUES.os[4];
   } else {
-    return 'unknown';
+    return VALUES.os[5];
   }
 }
 
 function getBrowser(ua) {
-  if (ua.isIE || ua.isIECompatibilityMode) {
-    return 'ie';
-  } else if (ua.isEdge) {
-    return 'edge';
-  } else if (ua.isSafari) {
-    return 'safari';
+  if (ua.isChrome) {
+    return VALUES.browser[0];
   } else if (ua.isFirefox) {
-    return 'firefox';
-  } else if (ua.isChrome) {
-    return 'chrome';
+    return VALUES.browser[1];
+  } else if (ua.isSafari) {
+    return VALUES.browser[2];
+  } else if (ua.isIE || ua.isIECompatibilityMode) {
+    return VALUES.browser[3];
+  } else if (ua.isEdge) {
+    return VALUES.browser[4];
   } else {
-    return 'unknown';
+    return VALUES.browser[5];
+  }
+}
+
+function compareValues(a, b, key) {
+  const aIndex = VALUES[key].indexOf(a[key]);
+  const bIndex = VALUES[key].indexOf(b[key]);
+
+  if (aIndex < bIndex) {
+    return -1;
+  } else if (aIndex === bIndex){
+    return 0;
+  } else {
+    return 1;
   }
 }
 
@@ -85,15 +112,7 @@ function writeDB(path, obj) {
   }
 }
 
-app.get('/data', (req, res) => {
-  let data;
-  // Read DB
-  try {
-    data = db.getData('/') || {};
-  } catch (e) {
-    data = {};
-  }
-
+function processData(data) {
   const pluginObj = {};
 
   Object.keys(data).forEach((plugin) => {
@@ -132,11 +151,33 @@ app.get('/data', (req, res) => {
     const formatObj = {};
 
     for (const [format, map] of formatMap.entries()) {
-      formatObj[format] = Array.from(map.values());;
+      const results = Array.from(map.values()).sort((a, b) => {
+        for (const key of ['device', 'os', 'browser', 'flash']) {
+          const ret = compareValues(a, b, key);
+          if (ret === 0) {
+            continue;
+          }
+          return ret;
+        }
+        return 0;
+      });
+      formatObj[format] = Array.from(results);;
     }
     pluginObj[plugin] = formatObj;
   });
-  res.status(200).json(pluginObj);
+
+  return pluginObj;
+}
+
+app.get('/data', (req, res) => {
+  let data;
+  // Read DB
+  try {
+    data = db.getData('/') || {};
+  } catch (e) {
+    data = {};
+  }
+  res.status(200).json(processData(data));
 });
 
 app.get('/bit_wrapper', (req, res) => {
