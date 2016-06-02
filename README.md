@@ -1,7 +1,7 @@
 # Player V4 multi-device test
 
 ## Prerequisite
-shell, git, node
+shell, git, node (npm v3.x)
 
 
 ## Install
