@@ -39,16 +39,16 @@ function getDevice(ua) {
 }
 
 function getOS(ua) {
-  if (ua.isWindows) {
+  if (ua.isiPad || ua.isiPod || ua.isiPhone) {
+    return VALUES.os[3];
+  } else if (ua.isAndroid) {
+    return VALUES.os[4];
+  } else if (ua.isWindows) {
     return VALUES.os[0];
   } else if (ua.isMac) {
     return VALUES.os[1];
   } else if (ua.isLinux || ua.isLinux64) {
     return VALUES.os[2];
-  } else if (ua.isiPad || ua.isiPod || ua.isiPhone) {
-    return VALUES.os[3];
-  } else if (ua.isAndroid) {
-    return VALUES.os[4];
   } else {
     return VALUES.os[5];
   }

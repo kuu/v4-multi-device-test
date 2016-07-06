@@ -7,6 +7,7 @@ import del from 'del';
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
+const OOYALA_VERSION = '4.5.5';
 
 /**
  * Lint
@@ -66,6 +67,7 @@ gulp.task('scripts', () => {
 gulp.task('html', ['styles', 'scripts'], () => {
   return gulp.src('app/*.html')
     .pipe($.useref({searchPath: ['.tmp', 'app', '.']}))
+    .pipe($.replace('OOYALA_VERSION', OOYALA_VERSION))
     .pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.css', $.cssnano()))
     .pipe($.if('*.html', $.htmlmin({collapseWhitespace: true})))

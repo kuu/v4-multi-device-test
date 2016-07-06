@@ -11,6 +11,15 @@ $ cd v4-multi-device-test
 $ npm install
 ```
 
+## Configure
+Edit the version of Ooyala player you want to test:
+```
+$ vi gulpfile.babel.js
+...
+const OOYALA_VERSION = '4.5.5'
+...
+```
+
 ## Build & Run
 ```
 $ npm run build && npm start
