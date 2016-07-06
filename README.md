@@ -12,7 +12,7 @@ $ npm install
 ```
 
 ## Configure
-Edit the version of Ooyala player you want to test:
+Input the version of Ooyala player you want to test:
 ```
 $ vi gulpfile.babel.js
 ...
