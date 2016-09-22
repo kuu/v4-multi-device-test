@@ -7,7 +7,7 @@ import del from 'del';
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
-const OOYALA_VERSION = '4.5.5';
+const OOYALA_VERSION = process.env.OOYALA_PLAYER_VERSION || 'latest';
 
 /**
  * Lint

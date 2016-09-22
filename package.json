@@ -47,6 +47,7 @@
     "build": "gulp build",
     "buildAll": "gulp",
     "start": "forever start app/scripts/server/index.js",
+    "startFG": "forever app/scripts/server/index.js",
     "stop": "forever stop app/scripts/server/index.js",
     "watch": "gulp serve",
     "dist": "gulp serve:dist",
